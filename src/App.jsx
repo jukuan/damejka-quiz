@@ -7,6 +7,7 @@ import RoundComplete from './components/RoundComplete'
 import './index.css'
 import { registerServiceWorker } from './pwa'
 import { SUPPORTED_LANGUAGES } from './i18n'
+import BackgroundCanvas from './components/BackgroundCanvas'
 
 const CORRECT_DELAY = 1000
 const WRONG_DELAY = 1500
@@ -372,16 +373,22 @@ export default function App() {
   }
 
   if (screen === 'language') {
-    return <LanguageScreen onSelect={chooseLanguage} />
+    return <>
+      <BackgroundCanvas />
+      <LanguageScreen onSelect={chooseLanguage} />
+    </>
   }
 
   if (screen === 'difficulty') {
     return (
-      <DifficultyScreen
-        lang={lang}
-        onBack={() => setScreen('language')}
-        onSelect={chooseDifficulty}
-      />
+      <>
+        <BackgroundCanvas />
+        <DifficultyScreen
+          lang={lang}
+          onBack={() => setScreen('language')}
+          onSelect={chooseDifficulty}
+        />
+      </>
     )
   }
 
@@ -399,7 +406,9 @@ export default function App() {
   }
 
   return (
-    <main className="shell">
+    <>
+      <BackgroundCanvas />
+      <main className="shell">
       <GameHeader
         lang={lang}
         round={currentRound}
@@ -424,5 +433,6 @@ export default function App() {
         onSubmit={() => handleSubmit()}
       />
     </main>
+    </>
   )
 }
