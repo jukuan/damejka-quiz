@@ -4,10 +4,11 @@ import DifficultyScreen from './components/DifficultyScreen'
 import GameHeader from './components/GameHeader'
 import QuestionCard from './components/QuestionCard'
 import RoundComplete from './components/RoundComplete'
+import BackgroundCanvas from './components/BackgroundCanvas'
 import './index.css'
 import { registerServiceWorker } from './pwa'
 import { SUPPORTED_LANGUAGES } from './i18n'
-import BackgroundCanvas from './components/BackgroundCanvas'
+import { getLangFromPath, navigateTo, replaceTo } from './routing'
 
 const CORRECT_DELAY = 1000
 const WRONG_DELAY = 1500
@@ -15,6 +16,9 @@ const WRONG_DELAY = 1500
 const DEFAULT_LANG = 'be'
 
 const pickRandom = (items) => items[Math.floor(Math.random() * items.length)]
+
+const isKnownLang = (value) =>
+  Boolean(value) && SUPPORTED_LANGUAGES.some((item) => item.id === value)
 
 // Eagerly import every language's question pack that exists at build time.
 // Vite rewrites this into static imports for each matching file, so
@@ -46,14 +50,33 @@ const getQuestionPack = (lang) => {
   }
 }
 
+/** Shared layout: animated background behind every screen. */
+const Layout = ({ children }) => (
+  <>
+    <BackgroundCanvas />
+    {children}
+  </>
+)
+
 export default function App() {
-  const [lang, setLang] = useState(() => localStorage.getItem('damejka-lang') || null)
+  // ---- Initial state, driven by URL first, then localStorage ----------------
+  const [lang, setLang] = useState(() => {
+    const fromUrl = getLangFromPath()
+    if (isKnownLang(fromUrl)) return fromUrl
+    const stored = localStorage.getItem('damejka-lang')
+    return isKnownLang(stored) ? stored : null
+  })
+
+  const [screen, setScreen] = useState(() => {
+    const fromUrl = getLangFromPath()
+    if (isKnownLang(fromUrl)) return 'difficulty'
+    const stored = localStorage.getItem('damejka-lang')
+    return isKnownLang(stored) ? 'difficulty' : 'language'
+  })
+
   const [installPrompt, setInstallPrompt] = useState(null)
   const [installed, setInstalled] = useState(false)
   const [difficulty, setDifficulty] = useState(null)
-  const [screen, setScreen] = useState(() =>
-    localStorage.getItem('damejka-lang') ? 'difficulty' : 'language',
-  )
 
   const [currentRound, setCurrentRound] = useState(0)
   const [remainingCategories, setRemainingCategories] = useState([])
@@ -90,6 +113,55 @@ export default function App() {
       ),
     [questions],
   )
+
+  // ---- Normalize URL on first mount ----------------------------------------
+  // If we already know the language (e.g. from localStorage) but the URL
+  // doesn't reflect it, fix the URL with replaceState so it matches what's
+  // on screen. Unknown paths get cleared back to `/`.
+  useEffect(() => {
+    const fromUrl = getLangFromPath()
+    if (lang && fromUrl !== lang) {
+      replaceTo(lang)
+    } else if (!lang && fromUrl) {
+      replaceTo(null)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // ---- React to browser Back/Forward ---------------------------------------
+  useEffect(() => {
+    const onPopState = () => {
+      // Cancel any in-flight "next question" timer.
+      if (timer.current) {
+        clearTimeout(timer.current)
+        timer.current = null
+      }
+
+      // Reset quiz state — we've navigated somewhere else.
+      setDifficulty(null)
+      setCurrentRound(0)
+      setRemainingCategories([])
+      setActiveCategoryId(null)
+      setActiveQuestion(null)
+      setFeedback(null)
+      setSelectedOption(null)
+      setUserAnswer('')
+      setScrambled('')
+      setCorrectAnswers(0)
+      setIncorrectAnswers(0)
+
+      const fromUrl = getLangFromPath()
+      if (isKnownLang(fromUrl)) {
+        setLang(fromUrl)
+        setScreen('difficulty')
+      } else {
+        setScreen('language')
+      }
+    }
+
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [])
 
   // ---- PWA / install prompt -------------------------------------------------
   useEffect(() => {
@@ -133,14 +205,10 @@ export default function App() {
     if (result.outcome !== 'accepted') setInstallPrompt(null)
   }, [installPrompt])
 
-  const getCategory = useCallback(
-    (id) => categories.find((category) => category.id === id),
-    [categories],
-  )
-
+  // Active category object — used for its icon and color.
   const category = useMemo(
-    () => getCategory(activeCategoryId),
-    [activeCategoryId, getCategory],
+    () => categories.find((item) => item.id === activeCategoryId) ?? null,
+    [categories, activeCategoryId],
   )
 
   const clearTimer = useCallback(() => {
@@ -150,6 +218,7 @@ export default function App() {
     }
   }, [])
 
+  // Cleanup any pending "next question" timeout on unmount.
   useEffect(() => clearTimer, [clearTimer])
 
   // ---- Loading and advancing ------------------------------------------------
@@ -187,6 +256,16 @@ export default function App() {
         .filter((item) => getPool(item.id, difficultyValue).length > 0)
         .map((item) => item.id)
 
+      // Nothing to ask for this language/difficulty — bounce to the picker
+      // instead of leaving the user on a screen with a spinning loader.
+      if (!availableCategories.length) {
+        console.warn(
+          `No questions for lang=${lang}, difficulty=${difficultyValue}`,
+        )
+        setScreen('language')
+        return
+      }
+
       setCurrentRound((round) => round + 1)
       setRemainingCategories(availableCategories)
       setActiveCategoryId(null)
@@ -200,7 +279,7 @@ export default function App() {
 
       setScreen('question')
     },
-    [categories, difficulty, getPool],
+    [categories, difficulty, getPool, lang],
   )
 
   // Once a round has started, pick the first random category for it.
@@ -340,6 +419,12 @@ export default function App() {
   const chooseLanguage = (value) => {
     setLang(value)
     setScreen('difficulty')
+    navigateTo(value) // push → Back returns to the picker
+  }
+
+  const goToLanguage = () => {
+    setScreen('language')
+    replaceTo(null) // replace → don't stack history on the picker
   }
 
   const chooseDifficulty = (value) => {
@@ -353,12 +438,14 @@ export default function App() {
     setIncorrectAnswers(0)
     setScreen('question')
 
-    // Let the difficulty state flush before starting the round.
-    setTimeout(() => startNewRound(value), 0)
+    // Pass the value explicitly so we don't depend on the state update
+    // having flushed before startNewRound reads `difficulty`.
+    startNewRound(value)
   }
 
   const restart = () => {
     clearTimer()
+    replaceTo(null)
     localStorage.removeItem('damejka-lang')
     setLang(null)
     setDifficulty(null)
@@ -372,67 +459,69 @@ export default function App() {
     setScreen('language')
   }
 
+  // ---- Render ---------------------------------------------------------------
   if (screen === 'language') {
-    return <>
-      <BackgroundCanvas />
-      <LanguageScreen onSelect={chooseLanguage} />
-    </>
+    return (
+      <Layout>
+        <LanguageScreen onSelect={chooseLanguage} />
+      </Layout>
+    )
   }
 
   if (screen === 'difficulty') {
     return (
-      <>
-        <BackgroundCanvas />
+      <Layout>
         <DifficultyScreen
           lang={lang}
-          onBack={() => setScreen('language')}
+          onBack={goToLanguage}
           onSelect={chooseDifficulty}
         />
-      </>
+      </Layout>
     )
   }
 
   if (screen === 'roundComplete') {
     return (
-      <RoundComplete
-        lang={lang}
-        round={currentRound}
-        correctAnswers={correctAnswers}
-        incorrectAnswers={incorrectAnswers}
-        onNextRound={() => startNewRound(difficulty)}
-        onRestart={restart}
-      />
+      <Layout>
+        <RoundComplete
+          lang={lang}
+          round={currentRound}
+          correctAnswers={correctAnswers}
+          incorrectAnswers={incorrectAnswers}
+          onNextRound={() => startNewRound(difficulty)}
+          onRestart={restart}
+        />
+      </Layout>
     )
   }
 
   return (
-    <>
-      <BackgroundCanvas />
+    <Layout>
       <main className="shell">
-      <GameHeader
-        lang={lang}
-        round={currentRound}
-        remainingCategories={remainingCategories}
-        onExit={restart}
-        onInstall={handleInstall}
-        canInstall={Boolean(installPrompt)}
-        installed={installed}
-      />
+        <GameHeader
+          lang={lang}
+          round={currentRound}
+          remainingCategories={remainingCategories}
+          onExit={restart}
+          onInstall={handleInstall}
+          canInstall={Boolean(installPrompt)}
+          installed={installed}
+        />
 
-      <QuestionCard
-        lang={lang}
-        question={activeQuestion}
-        category={category}
-        isDoubleFollowUp={isDoubleFollowUp}
-        selectedOption={selectedOption}
-        userAnswer={userAnswer}
-        scrambled={scrambled}
-        feedback={feedback}
-        onOptionSelect={handleOptionSelect}
-        onAnswerChange={setUserAnswer}
-        onSubmit={() => handleSubmit()}
-      />
-    </main>
-    </>
+        <QuestionCard
+          lang={lang}
+          question={activeQuestion}
+          category={category}
+          isDoubleFollowUp={isDoubleFollowUp}
+          selectedOption={selectedOption}
+          userAnswer={userAnswer}
+          scrambled={scrambled}
+          feedback={feedback}
+          onOptionSelect={handleOptionSelect}
+          onAnswerChange={setUserAnswer}
+          onSubmit={() => handleSubmit()}
+        />
+      </main>
+    </Layout>
   )
 }
