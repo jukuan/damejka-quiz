@@ -1,0 +1,16 @@
+{
+  "name": "Дамейка — навуковая віктарына",
+  "short_name": "Дамейка",
+  "description": "Навуковая віктарына для школьнікаў",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f0f4f8",
+  "theme_color": "#f0f4f8",
+  "lang": "be",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

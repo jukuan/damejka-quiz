@@ -1,0 +1,2293 @@
+// All quiz content lives here so a future admin panel can edit it independently.
+export const categories = [
+  {
+    "id": "physics",
+    "name": "Фізика",
+    "icon": "⚛️",
+    "color": "#3498db"
+  },
+  {
+    "id": "chemistry",
+    "name": "Хімія",
+    "icon": "🧪",
+    "color": "#e74c3c"
+  },
+  {
+    "id": "biology",
+    "name": "Біологія",
+    "icon": "🧬",
+    "color": "#2ecc71"
+  },
+  {
+    "id": "astronomy",
+    "name": "Астрономія",
+    "icon": "🪐",
+    "color": "#9b59b6"
+  },
+  {
+    "id": "religion",
+    "name": "Релігія та міфологія",
+    "icon": "🕌",
+    "color": "#f39c12"
+  },
+  {
+    "id": "linguistics",
+    "name": "Лінгвістика",
+    "icon": "🗣️",
+    "color": "#1abc9c"
+  },
+  {
+    "id": "informatics",
+    "name": "Інформатика та ІТ",
+    "icon": "💻",
+    "color": "#e67e22"
+  }
+]
+
+export const questions = [
+  {
+    "id": "physics-1",
+    "category": "physics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Яка одиниця вимірювання маси в СІ?",
+    "options": [
+      "Метр",
+      "Кілограм",
+      "Ньютон",
+      "Джоуль"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-2",
+    "category": "physics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Що показує термометр?",
+    "options": [
+      "Тиск",
+      "Температуру",
+      "Масу",
+      "Швидкість"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-3",
+    "category": "physics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Яка сила притягує тіла до Землі?",
+    "options": [
+      "Тертя",
+      "Тяжіння",
+      "Пружність",
+      "Магнетизм"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-4",
+    "category": "physics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Яка формула швидкості?",
+    "options": [
+      "v = s/t",
+      "v = m·a",
+      "v = F/s",
+      "v = t/s"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-5",
+    "category": "physics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Що є джерелом звуку?",
+    "options": [
+      "Коливання тіла",
+      "Тінь",
+      "Світло",
+      "Вакуум"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-6",
+    "category": "physics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Що відбувається з тілом під дією сили?",
+    "options": [
+      "Може змінитися його рух",
+      "Воно завжди зникає",
+      "Воно стає світлом",
+      "Нічого"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-7",
+    "category": "physics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "У якій одиниці вимірюють силу?",
+    "options": [
+      "Паскаль",
+      "Ньютон",
+      "Ват",
+      "Ампер"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-8",
+    "category": "physics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що відбувається з тиском газу за сталої температури, якщо об'єм зменшується?",
+    "options": [
+      "Зменшується",
+      "Збільшується",
+      "Не змінюється",
+      "Стає нульовим"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-9",
+    "category": "physics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Який вид передачі тепла відбувається через рух шарів рідини?",
+    "options": [
+      "Теплопровідність",
+      "Конвекція",
+      "Випромінювання",
+      "Дифузія"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-10",
+    "category": "physics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що дорівнює масі, поділеній на об'єм?",
+    "options": [
+      "Густина",
+      "Потужність",
+      "Робота",
+      "Імпульс"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-11",
+    "category": "physics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що відбувається з частотою хвилі при збільшенні періоду?",
+    "options": [
+      "Зростає",
+      "Зменшується",
+      "Не змінюється",
+      "Стає нульовою"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-12",
+    "category": "physics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Який закон пов'язує силу, масу та прискорення?",
+    "options": [
+      "Закон Архімеда",
+      "Другий закон Ньютона",
+      "Закон Ома",
+      "Закон Бойля"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-13",
+    "category": "physics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Яка величина зберігається в ізольованій механічній системі?",
+    "options": [
+      "Імпульс",
+      "Координата",
+      "Шлях",
+      "Прискорення кожного тіла"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-14",
+    "category": "physics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Як називається відхилення хвилі біля перешкоди?",
+    "options": [
+      "Дифракція",
+      "Дисперсія",
+      "Іонізація",
+      "Конденсація"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-15",
+    "category": "physics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що відбувається з енергією фотона при збільшенні частоти?",
+    "options": [
+      "Зменшується",
+      "Збільшується",
+      "Не змінюється",
+      "Стає від'ємною"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-16",
+    "category": "physics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Яка одиниця електричного опору?",
+    "options": [
+      "Ампер",
+      "Вольт",
+      "Ом",
+      "Ват"
+    ],
+    "correctIndex": 2,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "physics-17",
+    "category": "physics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що таке резонанс?",
+    "options": [
+      "Різке зростання коливань при збігу частот",
+      "Повна зупинка хвилі",
+      "Перехід газу в рідину",
+      "Зміна маси"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-18",
+    "category": "chemistry",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Яка формула води?",
+    "options": [
+      "CO₂",
+      "H₂O",
+      "O₂",
+      "NaCl"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-19",
+    "category": "chemistry",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Який газ необхідний людині для дихання?",
+    "options": [
+      "Кисень",
+      "Азот",
+      "Водень",
+      "Гелій"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-20",
+    "category": "chemistry",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Який метал позначається Fe?",
+    "options": [
+      "Мідь",
+      "Залізо",
+      "Срібло",
+      "Золото"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-21",
+    "category": "chemistry",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Що таке лід?",
+    "options": [
+      "Тверда вода",
+      "Твердий кисень",
+      "Твердий CO₂",
+      "Сіль"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-22",
+    "category": "chemistry",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Який смак має лимонна кислота?",
+    "options": [
+      "Солодкий",
+      "Кислий",
+      "Гіркий",
+      "Солоний"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-23",
+    "category": "chemistry",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Який елемент має символ O?",
+    "options": [
+      "Золото",
+      "Кисень",
+      "Осмій",
+      "Олово"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-24",
+    "category": "chemistry",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що показує pH розчину?",
+    "options": [
+      "Колір",
+      "Кислотність або лужність",
+      "Масу",
+      "Температуру"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-25",
+    "category": "chemistry",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Яка речовина є сіллю?",
+    "options": [
+      "NaCl",
+      "O₂",
+      "H₂",
+      "H₂O"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-26",
+    "category": "chemistry",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що утворюється при нейтралізації кислоти та лугу?",
+    "options": [
+      "Сіль і вода",
+      "Тільки кисень",
+      "Тільки водень",
+      "Метал"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-27",
+    "category": "chemistry",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Який газ утворюється при повному згорянні вуглецю?",
+    "options": [
+      "CO₂",
+      "H₂",
+      "O₂",
+      "N₂"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-28",
+    "category": "chemistry",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Який елемент має атомний номер 6?",
+    "options": [
+      "Кисень",
+      "Вуглець",
+      "Азот",
+      "Кремній"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-29",
+    "category": "chemistry",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Як називається перехід рідини в газ?",
+    "options": [
+      "Конденсація",
+      "Випаровування",
+      "Плавлення",
+      "Замерзання"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-30",
+    "category": "chemistry",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що таке каталізатор?",
+    "options": [
+      "Речовина, яка змінює швидкість реакції та не витрачається",
+      "Продукт реакції",
+      "Будь-яка сіль",
+      "Тільки розчинник"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-31",
+    "category": "chemistry",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Який зв'язок утворюється спільною електронною парою?",
+    "options": [
+      "Іонний",
+      "Ковалентний",
+      "Металічний",
+      "Ядерний"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-32",
+    "category": "chemistry",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що зазвичай збільшує швидкість хімічних реакцій?",
+    "options": [
+      "Зниження температури",
+      "Підвищення температури",
+      "Заморожування",
+      "Відсутність контакту"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-33",
+    "category": "chemistry",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Як називається віддача електронів?",
+    "options": [
+      "Відновлення",
+      "Окиснення",
+      "Гідратація",
+      "Дифузія"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-34",
+    "category": "chemistry",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що таке ізотопи одного елемента?",
+    "options": [
+      "Атоми з однаковою кількістю протонів і різною кількістю нейтронів",
+      "Атоми з різною кількістю протонів",
+      "Тільки молекули",
+      "Тільки йони"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "biology-35",
+    "category": "biology",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Який орган перекачує кров?",
+    "options": [
+      "Легені",
+      "Серце",
+      "Печінка",
+      "Нирки"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-36",
+    "category": "biology",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Яка частина рослини поглинає воду з ґрунту?",
+    "options": [
+      "Квітка",
+      "Корінь",
+      "Плід",
+      "Насіння"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-37",
+    "category": "biology",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Який газ рослини поглинають під час фотосинтезу?",
+    "options": [
+      "Кисень",
+      "Вуглекислий газ",
+      "Азот",
+      "Гелій"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-38",
+    "category": "biology",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Скільки ніг має павук?",
+    "options": [
+      "6",
+      "8",
+      "10",
+      "12"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-39",
+    "category": "biology",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Яка тварина є ссавцем?",
+    "options": [
+      "Жаба",
+      "Дельфін",
+      "Акула",
+      "Крокодил"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-40",
+    "category": "biology",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Де зберігається основна генетична інформація еукаріотичної клітини?",
+    "options": [
+      "У ядрі",
+      "У стінці",
+      "У вакуолі",
+      "У рибосомі"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-41",
+    "category": "biology",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що таке ДНК?",
+    "options": [
+      "Молекула генетичної інформації",
+      "Вітамін",
+      "Мембрана",
+      "Фермент"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-42",
+    "category": "biology",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Який процес дозволяє рослинам утворювати органічні речовини за допомогою світла?",
+    "options": [
+      "Фотосинтез",
+      "Дихання",
+      "Поділ",
+      "Ферментація"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-43",
+    "category": "biology",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Яка система переносить кисень кров'ю?",
+    "options": [
+      "Нервова",
+      "Кровоносна",
+      "Скелетна",
+      "Ендокринна"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-44",
+    "category": "biology",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Яка органела виробляє значну частину АТФ?",
+    "options": [
+      "Мітохондрія",
+      "Лізосома",
+      "Ядерце",
+      "Стінка"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-45",
+    "category": "biology",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що таке мутація?",
+    "options": [
+      "Зміна генетичного матеріалу",
+      "Зміна температури",
+      "Тип тканини",
+      "Рух крові"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-46",
+    "category": "biology",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Які клітини крові переносять кисень?",
+    "options": [
+      "Еритроцити",
+      "Лейкоцити",
+      "Тромбоцити",
+      "Нейрони"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-47",
+    "category": "biology",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Яка молекула є основним безпосереднім носієм енергії в клітині?",
+    "options": [
+      "АТФ",
+      "ДНК",
+      "Вода",
+      "Холестерин"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-48",
+    "category": "biology",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що таке мейоз?",
+    "options": [
+      "Поділ для утворення статевих клітин зі зменшеним набором хромосом",
+      "Тип дихання",
+      "Синтез білка",
+      "Ремонт мембрани"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-49",
+    "category": "biology",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Як називається комплекс ДНК з білками-гістонами?",
+    "options": [
+      "Хроматин",
+      "Цитоплазма",
+      "Вакуоля",
+      "Капсид"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-50",
+    "category": "biology",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Який процес передає інформацію з ДНК у РНК?",
+    "options": [
+      "Трансляція",
+      "Транскрипція",
+      "Фагоцитоз",
+      "Дифузія"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "biology-51",
+    "category": "biology",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Як називається підтримання відносно стабільного внутрішнього середовища?",
+    "options": [
+      "Гомеостаз",
+      "Мутагенез",
+      "Мітоз",
+      "Симбіоз"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-52",
+    "category": "astronomy",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Яка планета найближча до Сонця?",
+    "options": [
+      "Венера",
+      "Меркурій",
+      "Марс",
+      "Земля"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-53",
+    "category": "astronomy",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Скільки планет у Сонячній системі?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-54",
+    "category": "astronomy",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Як називається супутник Землі?",
+    "options": [
+      "Місяць",
+      "Фобос",
+      "Європа",
+      "Титан"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-55",
+    "category": "astronomy",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Яка планета відома своїми кільцями?",
+    "options": [
+      "Марс",
+      "Сатурн",
+      "Меркурій",
+      "Венера"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-56",
+    "category": "astronomy",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Що таке зоря?",
+    "options": [
+      "Небесне тіло, яке випромінює власне світло",
+      "Комета",
+      "Супутник",
+      "Астероїд"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-57",
+    "category": "astronomy",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Яку планету називають Червоною?",
+    "options": [
+      "Марс",
+      "Юпітер",
+      "Нептун",
+      "Венера"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-58",
+    "category": "astronomy",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що таке світловий рік?",
+    "options": [
+      "Одиниця відстані",
+      "Одиниця часу",
+      "Яскравість",
+      "Маса"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-59",
+    "category": "astronomy",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Яка планета найбільша?",
+    "options": [
+      "Сатурн",
+      "Юпітер",
+      "Нептун",
+      "Земля"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-60",
+    "category": "astronomy",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Чому відбувається зміна дня і ночі?",
+    "options": [
+      "Через обертання Землі навколо осі",
+      "Через Місяць",
+      "Через відстань до Сонця щогодини",
+      "Через Сатурн"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-61",
+    "category": "astronomy",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що таке астероїд?",
+    "options": [
+      "Невелике кам'янисте або металеве тіло",
+      "Газова зоря",
+      "Супутник Землі",
+      "Галактика"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-62",
+    "category": "astronomy",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "У якій галактиці знаходиться Сонячна система?",
+    "options": [
+      "Андромеда",
+      "Чумацький Шлях",
+      "Трикутник",
+      "Магелланова Хмара"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-63",
+    "category": "astronomy",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що таке екзопланета?",
+    "options": [
+      "Планета біля іншої зорі",
+      "Планета без атмосфери",
+      "Будь-яка карликова планета",
+      "Супутник"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-64",
+    "category": "astronomy",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що насамперед визначає спектральний клас зорі?",
+    "options": [
+      "Температура поверхні",
+      "Кількість супутників",
+      "Відстань до Місяця",
+      "Форма орбіти"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-65",
+    "category": "astronomy",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що таке червоне зміщення?",
+    "options": [
+      "Зсув спектральних ліній до більших довжин хвиль",
+      "Збільшення маси зорі",
+      "Зміна кольору Місяця",
+      "Вибух комети"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-66",
+    "category": "astronomy",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що відбувається в ядрі Сонця?",
+    "options": [
+      "Термоядерний синтез",
+      "Хімічне горіння",
+      "Горіння кисню в повітрі",
+      "Охолодження"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-67",
+    "category": "astronomy",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що може утворитися після колапсу дуже масивної зорі?",
+    "options": [
+      "Чорна діра",
+      "Комета",
+      "Веселка",
+      "Астероїд"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-68",
+    "category": "astronomy",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що таке горизонт подій чорної діри?",
+    "options": [
+      "Межа, після якої світло не може покинути область",
+      "Поверхня зорі",
+      "Орбіта Місяця",
+      "Кільце галактики"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "religion-69",
+    "category": "religion",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Як називається давньогрецький бог моря?",
+    "options": [
+      "Зевс",
+      "Аїд",
+      "Посейдон",
+      "Аполлон"
+    ],
+    "correctIndex": 2,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-70",
+    "category": "religion",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Хто був богом блискавки та неба в греків?",
+    "options": [
+      "Зевс",
+      "Арес",
+      "Гефест",
+      "Гермес"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-71",
+    "category": "religion",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Як називається свято народження Ісуса Христа?",
+    "options": [
+      "Великдень",
+      "Різдво",
+      "Трійця",
+      "П'ятидесятниця"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-72",
+    "category": "religion",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Хто в давньоєгипетській міфології пов'язувався із сонцем?",
+    "options": [
+      "Ра",
+      "Анубіс",
+      "Тот",
+      "Бастет"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-73",
+    "category": "religion",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Як називається священна книга ісламу?",
+    "options": [
+      "Тора",
+      "Біблія",
+      "Коран",
+      "Веди"
+    ],
+    "correctIndex": 2,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-74",
+    "category": "religion",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Хто був богом війни в давньоримській міфології?",
+    "options": [
+      "Марс",
+      "Нептун",
+      "Меркурій",
+      "Янус"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-75",
+    "category": "religion",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Як називається грецька богиня мудрості?",
+    "options": [
+      "Афіна",
+      "Гера",
+      "Артеміда",
+      "Афродіта"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-76",
+    "category": "religion",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Хто правил підземним світом у грецькій міфології?",
+    "options": [
+      "Гефест",
+      "Аїд",
+      "Діоніс",
+      "Еол"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-77",
+    "category": "religion",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що таке міф?",
+    "options": [
+      "Традиційна розповідь про богів, героїв або походження явищ",
+      "Наукова формула",
+      "Історична дата",
+      "Музичний жанр"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-78",
+    "category": "religion",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Як називається єврейська священна традиція, пов'язана з П'ятикнижжям?",
+    "options": [
+      "Тора",
+      "Коран",
+      "Авеста",
+      "Едда"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-79",
+    "category": "religion",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Хто володіє молотом Мйольніром?",
+    "options": [
+      "Одін",
+      "Тор",
+      "Локі",
+      "Бальдр"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-80",
+    "category": "religion",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Як називаються стародавні священні писання індуїзму?",
+    "options": [
+      "Веди",
+      "Едди",
+      "Канон",
+      "Псалтир"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-81",
+    "category": "religion",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що таке міфологія?",
+    "options": [
+      "Система міфів та уявлень культури",
+      "Спосіб вимірювання часу",
+      "Розділ математики",
+      "Список царів"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-82",
+    "category": "religion",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Хто був посланцем богів у грецькій міфології?",
+    "options": [
+      "Гермес",
+      "Гефест",
+      "Арес",
+      "Прометей"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-83",
+    "category": "religion",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що символізує Прометей у багатьох інтерпретаціях?",
+    "options": [
+      "Принесення людям вогню та знань",
+      "Владу над морем",
+      "Подорож на Марс",
+      "Створення алфавіту"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-84",
+    "category": "religion",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Як називається епічна поема Гомера про Троянську війну?",
+    "options": [
+      "Іліада",
+      "Енеїда",
+      "Метаморфози",
+      "Теогонія"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "religion-85",
+    "category": "religion",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Як називається віра в багатьох богів?",
+    "options": [
+      "Монотеїзм",
+      "Політеїзм",
+      "Атеїзм",
+      "Скептицизм"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-86",
+    "category": "linguistics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Скільки літер в українському алфавіті?",
+    "options": [
+      "32",
+      "33",
+      "34",
+      "35"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-87",
+    "category": "linguistics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Яка частина мови називає предмет, особу або явище?",
+    "options": [
+      "Іменник",
+      "Дієслово",
+      "Прислівник",
+      "Сполучник"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-88",
+    "category": "linguistics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Що виражає дієслово?",
+    "options": [
+      "Дію або стан",
+      "Колір",
+      "Число",
+      "Назву предмета"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-89",
+    "category": "linguistics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Що таке алфавіт?",
+    "options": [
+      "Система літер у певному порядку",
+      "Словник",
+      "Правило пунктуації",
+      "Текст"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-90",
+    "category": "linguistics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Який знак ставиться в кінці звичайного розповідного речення?",
+    "options": [
+      "Кома",
+      "Крапка",
+      "Двокрапка",
+      "Дужки"
+    ],
+    "correctIndex": 1,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-91",
+    "category": "linguistics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Як називається мова певної спільноти?",
+    "options": [
+      "Мова",
+      "Шрифт",
+      "Склад",
+      "Рима"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-92",
+    "category": "linguistics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що таке синоніми?",
+    "options": [
+      "Слова з близьким значенням",
+      "Слова з протилежним значенням",
+      "Однакові склади",
+      "Тільки запозичення"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-93",
+    "category": "linguistics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що таке антоніми?",
+    "options": [
+      "Слова з протилежним значенням",
+      "Слова з однаковим звучанням",
+      "Назви літер",
+      "Діалектизми"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-94",
+    "category": "linguistics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Як називається наука про мову?",
+    "options": [
+      "Лінгвістика",
+      "Ботаніка",
+      "Геологія",
+      "Оптика"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-95",
+    "category": "linguistics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що таке діалект?",
+    "options": [
+      "Різновид мови певної території або спільноти",
+      "Алфавіт",
+      "Книга",
+      "Музичний жанр"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-96",
+    "category": "linguistics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що вивчає фонетика?",
+    "options": [
+      "Звуковий бік мови",
+      "Будову речень",
+      "Походження держав",
+      "Тільки прізвища"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-97",
+    "category": "linguistics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Як називається найменша значуща частина слова?",
+    "options": [
+      "Морфема",
+      "Речення",
+      "Абзац",
+      "Фраза"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-98",
+    "category": "linguistics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що вивчає синтаксис?",
+    "options": [
+      "Способи поєднання слів і будову речень",
+      "Тільки звуки",
+      "Тільки значення слів",
+      "Історію письменства"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-99",
+    "category": "linguistics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що таке омоніми?",
+    "options": [
+      "Слова, однакові за формою, але різні за значенням",
+      "Слова з протилежним значенням",
+      "Слова одного кореня",
+      "Тільки запозичення"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-100",
+    "category": "linguistics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що вивчає етимологія?",
+    "options": [
+      "Походження та історію слів",
+      "Вимову",
+      "Пунктуацію",
+      "Жестову мову"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-101",
+    "category": "linguistics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Як називається творення нових слів на базі наявних?",
+    "options": [
+      "Словотвір",
+      "Відмінювання",
+      "Інтонація",
+      "Артикуляція"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-102",
+    "category": "linguistics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що таке корпус мови?",
+    "options": [
+      "Велика структурована сукупність текстів для дослідження мови",
+      "Словник синонімів",
+      "Одна книга",
+      "Шрифт"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-103",
+    "category": "informatics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Що таке комп'ютер?",
+    "options": [
+      "Електронний пристрій для обробки даних",
+      "Тільки калькулятор",
+      "Відеогра",
+      "Принтер"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-104",
+    "category": "informatics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Що зберігає файли після вимкнення комп'ютера?",
+    "options": [
+      "SSD або диск",
+      "RAM",
+      "Кеш",
+      "Клавіатура"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-105",
+    "category": "informatics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Що таке клавіатура?",
+    "options": [
+      "Пристрій введення",
+      "Принтер",
+      "Відеокарта",
+      "Кабель"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-106",
+    "category": "informatics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Що таке Wi‑Fi?",
+    "options": [
+      "Бездротовий мережевий зв'язок",
+      "Батарея",
+      "Відеоформат",
+      "Мова програмування"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-107",
+    "category": "informatics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Який знак часто використовується в електронній адресі?",
+    "options": [
+      "@",
+      "#",
+      "%",
+      "&"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-108",
+    "category": "informatics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Що таке браузер?",
+    "options": [
+      "Програма для перегляду вебсторінок",
+      "Програма малювання",
+      "Процесор",
+      "Файлова система"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-109",
+    "category": "informatics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що таке RAM?",
+    "options": [
+      "Тимчасова швидка пам'ять",
+      "Архів на папері",
+      "Монітор",
+      "Протокол"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-110",
+    "category": "informatics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що таке IP-адреса?",
+    "options": [
+      "Адреса мережевого інтерфейсу",
+      "Пароль",
+      "Ім'я файлу",
+      "Відеокарта"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-111",
+    "category": "informatics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що таке алгоритм?",
+    "options": [
+      "Послідовність кроків для розв'язання задачі",
+      "Помилка коду",
+      "Малюнок",
+      "Мишка"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-112",
+    "category": "informatics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Яка мова розмітки використовується для структури вебсторінок?",
+    "options": [
+      "HTML",
+      "Python",
+      "SQL",
+      "Bash"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-113",
+    "category": "informatics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що робить DNS?",
+    "options": [
+      "Перекладає доменні імена в мережеві адреси",
+      "Шифрує файли",
+      "Збільшує RAM",
+      "Створює відеокарту"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-114",
+    "category": "informatics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що таке Git?",
+    "options": [
+      "Система контролю версій",
+      "Антивірус",
+      "Відеоредактор",
+      "База даних"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-115",
+    "category": "informatics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що таке API?",
+    "options": [
+      "Інтерфейс взаємодії програм",
+      "Формат зображення",
+      "Процесор",
+      "Охолодження"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-116",
+    "category": "informatics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що таке хеш-функція?",
+    "options": [
+      "Функція, яка відображає дані в хеш-значення",
+      "Відеопротокол",
+      "Кабель",
+      "Мова розмітки"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-117",
+    "category": "informatics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Яка структура даних працює за принципом LIFO?",
+    "options": [
+      "Стек",
+      "Черга",
+      "Дерево",
+      "Граф"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-118",
+    "category": "informatics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що таке рекурсія?",
+    "options": [
+      "Алгоритмічний виклик функцією самої себе",
+      "Алгоритм без умов",
+      "Мережевий протокол",
+      "Формат файлу"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-119",
+    "category": "informatics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що означає Big O?",
+    "options": [
+      "Оцінку зростання витрат алгоритму при збільшенні входу",
+      "Мову програмування",
+      "Розмір файлу",
+      "Схему БД"
+    ],
+    "correctIndex": 0,
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "physics-double-120",
+    "category": "physics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Що відбувається з тінню, коли джерело світла змінює положення?",
+    "options": [
+      "Вона може змінити розмір і положення",
+      "Вона завжди зникає",
+      "Вона стає звуком",
+      "Нічого"
+    ],
+    "correctIndex": 0,
+    "isDouble": true,
+    "followUp": {
+      "question": "Яке явище пояснює поширення світла по прямій?",
+      "options": [
+        "Прямолінійне поширення світла",
+        "Дифузія",
+        "Кипіння",
+        "Електроліз"
+      ],
+      "correctIndex": 0,
+      "image": null
+    },
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-double-121",
+    "category": "chemistry",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Який характер має pH нижче 7?",
+    "options": [
+      "Кислий розчин",
+      "Лужний розчин",
+      "Нейтральний",
+      "Тільки газ"
+    ],
+    "correctIndex": 0,
+    "isDouble": true,
+    "followUp": {
+      "question": "Що станеться з pH при додаванні кислоти у воду?",
+      "options": [
+        "Зазвичай зменшиться",
+        "Збільшиться",
+        "Не зміниться",
+        "Стане 14"
+      ],
+      "correctIndex": 0,
+      "image": null
+    },
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "biology-double-122",
+    "category": "biology",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Яка частина рослини часто зелена завдяки хлорофілу?",
+    "options": [
+      "Листок",
+      "Корінь",
+      "Насіння",
+      "Кора"
+    ],
+    "correctIndex": 0,
+    "isDouble": true,
+    "followUp": {
+      "question": "Яка органела містить хлорофіл?",
+      "options": [
+        "Хлоропласт",
+        "Мітохондрія",
+        "Лізосома",
+        "Ядро"
+      ],
+      "correctIndex": 0,
+      "image": null
+    },
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "astronomy-double-123",
+    "category": "astronomy",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що відбувається під час сонячного затемнення?",
+    "options": [
+      "Місяць закриває Сонце для спостерігача на Землі",
+      "Марс закриває Сонце",
+      "Земля зникає",
+      "Сонце вимикається"
+    ],
+    "correctIndex": 0,
+    "isDouble": true,
+    "followUp": {
+      "question": "Яка фаза Місяця зазвичай потрібна для сонячного затемнення?",
+      "options": [
+        "Молодик",
+        "Повня",
+        "Остання чверть",
+        "Будь-яка"
+      ],
+      "correctIndex": 0,
+      "image": null
+    },
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Дамейка"
+  },
+  {
+    "id": "religion-double-124",
+    "category": "religion",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Хто, за грецьким міфом, ніс небо на плечах?",
+    "options": [
+      "Атлант",
+      "Гермес",
+      "Арес",
+      "Геракл"
+    ],
+    "correctIndex": 0,
+    "isDouble": true,
+    "followUp": {
+      "question": "До якого роду істот належав Атлант?",
+      "options": [
+        "Титан",
+        "Кентавр",
+        "Олімпієць-бог",
+        "Людина"
+      ],
+      "correctIndex": 0,
+      "image": null
+    },
+    "image": "https://placehold.co/600x300/f39c12/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-double-125",
+    "category": "linguistics",
+    "difficulty": "medium",
+    "type": "mcq",
+    "question": "Що таке словоформа?",
+    "options": [
+      "Конкретна форма слова в певному граматичному значенні",
+      "Шрифт",
+      "Фонема",
+      "Абзац"
+    ],
+    "correctIndex": 0,
+    "isDouble": true,
+    "followUp": {
+      "question": "Що таке фонема?",
+      "options": [
+        "Найменша звукова одиниця, яка може розрізняти значення",
+        "Частина речення",
+        "Завжди літера",
+        "Слово без кореня"
+      ],
+      "correctIndex": 0,
+      "image": null
+    },
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Дамейка"
+  },
+  {
+    "id": "informatics-double-126",
+    "category": "informatics",
+    "difficulty": "easy",
+    "type": "mcq",
+    "question": "Як захистити важливий файл від втрати при поломці диска?",
+    "options": [
+      "Зробити резервну копію",
+      "Перейменувати",
+      "Змінити шпалери",
+      "Вимкнути монітор"
+    ],
+    "correctIndex": 0,
+    "isDouble": true,
+    "followUp": {
+      "question": "Де краще зберігати резервну копію?",
+      "options": [
+        "На іншому носії або в надійній хмарі",
+        "У тій самій теці",
+        "Тільки в RAM",
+        "У буфері"
+      ],
+      "correctIndex": 0,
+      "image": null
+    },
+    "image": "https://placehold.co/600x300/e67e22/white?text=Дамейка"
+  },
+  {
+    "id": "physics-double-127",
+    "category": "physics",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що таке електричний струм?",
+    "options": [
+      "Упорядкований рух електричних зарядів",
+      "Рух світла",
+      "Рух води",
+      "Форма звуку"
+    ],
+    "correctIndex": 0,
+    "isDouble": true,
+    "followUp": {
+      "question": "У якій одиниці вимірюють силу струму?",
+      "options": [
+        "Ампер",
+        "Вольт",
+        "Ом",
+        "Ват"
+      ],
+      "correctIndex": 0,
+      "image": null
+    },
+    "image": "https://placehold.co/600x300/3498db/white?text=Дамейка"
+  },
+  {
+    "id": "chemistry-double-128",
+    "category": "chemistry",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що таке ізотопи одного елемента?",
+    "options": [
+      "Атоми з однаковою кількістю протонів і різною кількістю нейтронів",
+      "Атоми з різною кількістю протонів",
+      "Молекули",
+      "Тільки йони"
+    ],
+    "correctIndex": 0,
+    "isDouble": true,
+    "followUp": {
+      "question": "Що однакове в ізотопів?",
+      "options": [
+        "Атомний номер",
+        "Маса",
+        "Кількість нейтронів",
+        "Фізичний стан"
+      ],
+      "correctIndex": 0,
+      "image": null
+    },
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Дамейка"
+  },
+  {
+    "id": "biology-double-129",
+    "category": "biology",
+    "difficulty": "hard",
+    "type": "mcq",
+    "question": "Що таке природний добір?",
+    "options": [
+      "Процес, при якому корисні спадкові особливості можуть поширюватися в популяції",
+      "Навчання",
+      "Поділ клітини",
+      "Зміна погоди"
+    ],
+    "correctIndex": 0,
+    "isDouble": true,
+    "followUp": {
+      "question": "З чим пов'язана еволюційна зміна популяцій?",
+      "options": [
+        "З варіацією, спадковістю та добором",
+        "Тільки з розміром тіла",
+        "Тільки з харчуванням",
+        "З одним випадковим днем"
+      ],
+      "correctIndex": 0,
+      "image": null
+    },
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Дамейка"
+  },
+  {
+    "id": "linguistics-unscramble-130",
+    "category": "linguistics",
+    "difficulty": "easy",
+    "type": "unscramble",
+    "question": "Розшифруй слово, пов'язане з мовою.",
+    "correctAnswer": "мова",
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/1abc9c/white?text=Слова"
+  },
+  {
+    "id": "informatics-unscramble-131",
+    "category": "informatics",
+    "difficulty": "easy",
+    "type": "unscramble",
+    "question": "Розшифруй назву пристрою для введення.",
+    "correctAnswer": "мишка",
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e67e22/white?text=Слова"
+  },
+  {
+    "id": "astronomy-unscramble-132",
+    "category": "astronomy",
+    "difficulty": "easy",
+    "type": "unscramble",
+    "question": "Розшифруй назву нашого супутника.",
+    "correctAnswer": "місяць",
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/9b59b6/white?text=Слова"
+  },
+  {
+    "id": "biology-unscramble-133",
+    "category": "biology",
+    "difficulty": "medium",
+    "type": "unscramble",
+    "question": "Розшифруй термін, пов'язаний з клітиною.",
+    "correctAnswer": "ядро",
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/2ecc71/white?text=Слова"
+  },
+  {
+    "id": "chemistry-unscramble-134",
+    "category": "chemistry",
+    "difficulty": "medium",
+    "type": "unscramble",
+    "question": "Розшифруй назву речовини, необхідної для дихання.",
+    "correctAnswer": "кисень",
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/e74c3c/white?text=Слова"
+  },
+  {
+    "id": "physics-unscramble-135",
+    "category": "physics",
+    "difficulty": "medium",
+    "type": "unscramble",
+    "question": "Розшифруй фізичну величину.",
+    "correctAnswer": "енергія",
+    "isDouble": false,
+    "image": "https://placehold.co/600x300/3498db/white?text=Слова"
+  }
+]
+
+export function scrambleWord(word) {
+  const chars = [...word]
+  if (chars.length < 2) return word
+  for (let i = chars.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[chars[i], chars[j]] = [chars[j], chars[i]]
+  }
+  const result = chars.join('')
+  return result === word ? scrambleWord(word) : result
+}
