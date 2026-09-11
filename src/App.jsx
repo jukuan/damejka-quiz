@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import LanguageScreen from './components/LanguageScreen'
 import DifficultyScreen from './components/DifficultyScreen'
 import GameHeader from './components/GameHeader'
+import Footer from './components/Footer'
 import QuestionCard from './components/QuestionCard'
 import RoundComplete from './components/RoundComplete'
 import BackgroundCanvas from './components/BackgroundCanvas'
@@ -51,10 +52,11 @@ const getQuestionPack = (lang) => {
 }
 
 /** Shared layout: animated background behind every screen. */
-const Layout = ({ children }) => (
+const Layout = ({ lang, children }) => (  
   <>
     <BackgroundCanvas />
     {children}
+    <Footer lang={lang} />
   </>
 )
 
@@ -462,7 +464,7 @@ export default function App() {
   // ---- Render ---------------------------------------------------------------
   if (screen === 'language') {
     return (
-      <Layout>
+      <Layout lang={lang}>
         <LanguageScreen onSelect={chooseLanguage} />
       </Layout>
     )
@@ -470,7 +472,7 @@ export default function App() {
 
   if (screen === 'difficulty') {
     return (
-      <Layout>
+      <Layout lang={lang}>
         <DifficultyScreen
           lang={lang}
           onBack={goToLanguage}
@@ -482,7 +484,7 @@ export default function App() {
 
   if (screen === 'roundComplete') {
     return (
-      <Layout>
+      <Layout lang={lang}>
         <RoundComplete
           lang={lang}
           round={currentRound}
@@ -496,7 +498,7 @@ export default function App() {
   }
 
   return (
-    <Layout>
+    <Layout lang={lang}>
       <main className="shell">
         <GameHeader
           lang={lang}
