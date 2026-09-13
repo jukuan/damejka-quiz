@@ -1,8 +1,9 @@
-export async function initSentry() {
+import * as Sentry from '@sentry/react'
+
+export function initSentry() {
   const dsn = import.meta.env.VITE_SENTRY_DSN
   if (!dsn || !import.meta.env.PROD) return
 
-  const Sentry = await import('@sentry/react')
   Sentry.init({
     dsn,
     environment: import.meta.env.MODE,
@@ -25,3 +26,7 @@ export async function initSentry() {
     replaysOnErrorSampleRate: 1.0,
   })
 }
+
+// Re-exported so main.jsx and pwa.js can use `Sentry.ErrorBoundary`,
+// `Sentry.captureException`, etc. without importing @sentry/react directly.
+export { Sentry }

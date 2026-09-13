@@ -14,11 +14,14 @@ export default defineConfig({
 
     rollupOptions: {
       output: {
-        // Split vendors so a code change in your app doesn't bust the
-        // React/Sentry cache for returning users.
-        manualChunks: {
-          react: ['react', 'react-dom'],
-          sentry: ['@sentry/react'],
+        advancedChunks: {
+          groups: [
+            { name: 'sentry', test: /node_modules[\\/]@sentry/ },
+            {
+              name: 'react',
+              test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/,
+            },
+          ],
         },
       },
     },
