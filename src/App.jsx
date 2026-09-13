@@ -8,7 +8,7 @@ import RoundComplete from './components/RoundComplete'
 import BackgroundCanvas from './components/BackgroundCanvas'
 import './index.css'
 import { registerServiceWorker } from './pwa'
-import { SUPPORTED_LANGUAGES } from './i18n'
+import { SUPPORTED_LANGUAGES, t } from './i18n'
 import { getLangFromPath, navigateTo, replaceTo } from './routing'
 
 const CORRECT_DELAY = 1000
@@ -22,21 +22,16 @@ const isKnownLang = (value) =>
   Boolean(value) && SUPPORTED_LANGUAGES.some((item) => item.id === value)
 
 // Eagerly import every language's question pack that exists at build time.
-// Vite rewrites this into static imports for each matching file, so
-// `questionModules['./data/de/questions.js']` etc. are available synchronously.
-const questionModules = import.meta.glob('./data/*/questions.js', { eager: true })
+const questionModules = import.meta.glob('./data/*/questions.js', {
+  eager: true,
+})
 
-/**
- * Return the question pack for a language, falling back to the default
- * language if the requested one has no pack.
- */
 const getQuestionPack = (lang) => {
   const requestedKey = `./data/${lang}/questions.js`
   const fallbackKey = `./data/${DEFAULT_LANG}/questions.js`
   const mod = questionModules[requestedKey] || questionModules[fallbackKey]
 
   if (!mod) {
-    // Extremely unlikely, but we don't want the app to crash.
     return {
       categories: [],
       questions: [],
@@ -52,7 +47,7 @@ const getQuestionPack = (lang) => {
 }
 
 /** Shared layout: animated background behind every screen. */
-const Layout = ({ lang, children }) => (  
+const Layout = ({ lang, children }) => (
   <>
     <BackgroundCanvas />
     {children}
@@ -77,7 +72,14 @@ export default function App() {
   })
 
   const [installPrompt, setInstallPrompt] = useState(null)
-  const [installed, setInstalled] = useState(false)
+
+  // Initialized lazily — no need for an effect just to read this once.
+  const [installed, setInstalled] = useState(
+    () =>
+      window.matchMedia?.('(display-mode: standalone)').matches ||
+      window.navigator.standalone === true,
+  )
+
   const [difficulty, setDifficulty] = useState(null)
 
   const [currentRound, setCurrentRound] = useState(0)
@@ -86,7 +88,8 @@ export default function App() {
   const [activeQuestion, setActiveQuestion] = useState(null)
 
   const [isDoubleFollowUp, setIsDoubleFollowUp] = useState(false)
-  const [pendingCategoryCompletion, setPendingCategoryCompletion] = useState(null)
+  const [pendingCategoryCompletion, setPendingCategoryCompletion] =
+    useState(null)
 
   const [selectedOption, setSelectedOption] = useState(null)
   const [userAnswer, setUserAnswer] = useState('')
@@ -99,8 +102,6 @@ export default function App() {
   const timer = useRef(null)
 
   // ---- Question pack for the current language -------------------------------
-  // Recomputes whenever `lang` changes, and gives us fresh categories,
-  // questions and the scramble helper for that language.
   const { categories, questions, scrambleWord } = useMemo(
     () => getQuestionPack(lang || DEFAULT_LANG),
     [lang],
@@ -117,9 +118,6 @@ export default function App() {
   )
 
   // ---- Normalize URL on first mount ----------------------------------------
-  // If we already know the language (e.g. from localStorage) but the URL
-  // doesn't reflect it, fix the URL with replaceState so it matches what's
-  // on screen. Unknown paths get cleared back to `/`.
   useEffect(() => {
     const fromUrl = getLangFromPath()
     if (lang && fromUrl !== lang) {
@@ -133,13 +131,11 @@ export default function App() {
   // ---- React to browser Back/Forward ---------------------------------------
   useEffect(() => {
     const onPopState = () => {
-      // Cancel any in-flight "next question" timer.
       if (timer.current) {
         clearTimeout(timer.current)
         timer.current = null
       }
 
-      // Reset quiz state — we've navigated somewhere else.
       setDifficulty(null)
       setCurrentRound(0)
       setRemainingCategories([])
@@ -180,10 +176,6 @@ export default function App() {
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstall)
     window.addEventListener('appinstalled', handleInstalled)
-    setInstalled(
-      window.matchMedia?.('(display-mode: standalone)').matches ||
-        window.navigator.standalone === true,
-    )
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstall)
@@ -195,9 +187,8 @@ export default function App() {
   useEffect(() => {
     if (!lang) return
     localStorage.setItem('damejka-lang', lang)
-    const language = SUPPORTED_LANGUAGES.find((item) => item.id === lang)
     document.documentElement.lang = lang
-    document.title = `Дамейка — ${language?.nativeName || 'Quiz'}`
+    document.title = t(lang, 'title')
   }, [lang])
 
   const handleInstall = useCallback(async () => {
@@ -220,7 +211,6 @@ export default function App() {
     }
   }, [])
 
-  // Cleanup any pending "next question" timeout on unmount.
   useEffect(() => clearTimer, [clearTimer])
 
   // ---- Loading and advancing ------------------------------------------------
@@ -258,8 +248,6 @@ export default function App() {
         .filter((item) => getPool(item.id, difficultyValue).length > 0)
         .map((item) => item.id)
 
-      // Nothing to ask for this language/difficulty — bounce to the picker
-      // instead of leaving the user on a screen with a spinning loader.
       if (!availableCategories.length) {
         console.warn(
           `No questions for lang=${lang}, difficulty=${difficultyValue}`,
@@ -270,39 +258,17 @@ export default function App() {
 
       setCurrentRound((round) => round + 1)
       setRemainingCategories(availableCategories)
-      setActiveCategoryId(null)
-      setActiveQuestion(null)
-      setFeedback(null)
-      setPendingCategoryCompletion(null)
-      setIsDoubleFollowUp(false)
-
       setCorrectAnswers(0)
       setIncorrectAnswers(0)
-
       setScreen('question')
+
+      // Load the first question of the new round immediately — previously
+      // this lived in a separate effect and was flagged by
+      // react-hooks/set-state-in-effect.
+      loadQuestion(pickRandom(availableCategories), difficultyValue)
     },
-    [categories, difficulty, getPool, lang],
+    [categories, difficulty, getPool, lang, loadQuestion],
   )
-
-  // Once a round has started, pick the first random category for it.
-  useEffect(() => {
-    if (
-      screen !== 'question' ||
-      activeQuestion ||
-      !difficulty ||
-      !remainingCategories.length
-    ) {
-      return
-    }
-
-    loadQuestion(pickRandom(remainingCategories), difficulty)
-  }, [
-    screen,
-    activeQuestion,
-    difficulty,
-    remainingCategories,
-    loadQuestion,
-  ])
 
   const finishRound = useCallback(() => {
     clearTimer()
@@ -321,7 +287,6 @@ export default function App() {
 
       setRemainingCategories(nextCategories)
 
-      // Avoid immediately repeating the same category.
       const candidates = nextCategories.filter((id) => id !== categoryId)
 
       timer.current = setTimeout(() => {
@@ -333,13 +298,7 @@ export default function App() {
         loadQuestion(pickRandom(candidates), difficulty)
       }, delay)
     },
-    [
-      clearTimer,
-      difficulty,
-      finishRound,
-      loadQuestion,
-      remainingCategories,
-    ],
+    [clearTimer, difficulty, finishRound, loadQuestion, remainingCategories],
   )
 
   const handleSubmit = useCallback(
@@ -366,7 +325,6 @@ export default function App() {
       }
 
       if (!isCorrect) {
-        // A wrong answer doesn't complete the category; move on.
         advance(activeCategoryId, false, WRONG_DELAY)
         return
       }
@@ -389,7 +347,6 @@ export default function App() {
         return
       }
 
-      // Correct answer (normal question or double follow-up) completes the category.
       advance(
         pendingCategoryCompletion || activeCategoryId,
         true,
@@ -421,12 +378,12 @@ export default function App() {
   const chooseLanguage = (value) => {
     setLang(value)
     setScreen('difficulty')
-    navigateTo(value) // push → Back returns to the picker
+    navigateTo(value)
   }
 
   const goToLanguage = () => {
     setScreen('language')
-    replaceTo(null) // replace → don't stack history on the picker
+    replaceTo(null)
   }
 
   const chooseDifficulty = (value) => {
@@ -440,8 +397,6 @@ export default function App() {
     setIncorrectAnswers(0)
     setScreen('question')
 
-    // Pass the value explicitly so we don't depend on the state update
-    // having flushed before startNewRound reads `difficulty`.
     startNewRound(value)
   }
 

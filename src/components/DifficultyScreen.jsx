@@ -1,7 +1,9 @@
 import { SUPPORTED_LANGUAGES, t } from '../i18n'
 
 const difficulties = [
-  ['easy', '🌱'], ['medium', '⚡'], ['hard', '🔥'],
+  ['easy', '🌱'],
+  ['medium', '⚡'],
+  ['hard', '🔥'],
 ]
 
 export default function DifficultyScreen({ lang, onBack, onSelect }) {
@@ -9,8 +11,12 @@ export default function DifficultyScreen({ lang, onBack, onSelect }) {
   return (
     <main className="shell narrow">
       <header className="top">
-        <button className="ghost" onClick={onBack}>{t(lang, 'back')}</button>
-        <span>{language?.nativeName} {language?.flag}</span>
+        <button className="ghost" onClick={onBack}>
+          {t(lang, 'back')}
+        </button>
+        <span>
+          {language?.nativeName} {language?.flag}
+        </span>
       </header>
       <section className="card intro">
         <small className="step">{t(lang, 'step')}</small>
@@ -18,8 +24,17 @@ export default function DifficultyScreen({ lang, onBack, onSelect }) {
         <p>{t(lang, 'difficultyHint')}</p>
         <div className="difficulties">
           {difficulties.map(([id, icon]) => (
-            <button className="difficulty" key={id} onClick={() => onSelect(id)}>
-              <span>{icon}</span><div><b>{t(lang, id)}</b><small>{t(lang, `${id}Hint`)}</small></div><i>→</i>
+            <button
+              className="difficulty"
+              key={id}
+              onClick={() => onSelect(id)}
+            >
+              <span>{icon}</span>
+              <div>
+                <b>{t(lang, id)}</b>
+                <small>{t(lang, `${id}Hint`)}</small>
+              </div>
+              <i>→</i>
             </button>
           ))}
         </div>

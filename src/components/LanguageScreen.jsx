@@ -10,9 +10,16 @@ export default function LanguageScreen({ onSelect }) {
         <p>{t('be', 'languageHint')}</p>
         <div className="languages">
           {SUPPORTED_LANGUAGES.map((language) => (
-            <button className="language" key={language.id} onClick={() => onSelect(language.id)}>
+            <button
+              className="language"
+              key={language.id}
+              onClick={() => onSelect(language.id)}
+            >
               <span>{language.flag}</span>
-              <div><b>{language.nativeName}</b><small>{t(language.id, 'available')}</small></div>
+              <div>
+                <b>{language.nativeName}</b>
+                <small>{t(language.id, 'available')}</small>
+              </div>
               <i>→</i>
             </button>
           ))}

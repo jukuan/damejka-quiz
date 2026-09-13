@@ -1,6 +1,10 @@
 .idea
 .vscode
+.DS_Store
+
 .vite
 dist
 node_modules
-.DS_Store
+
+.env.local
+.env.*.local

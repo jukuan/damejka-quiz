@@ -98,10 +98,6 @@ export default function BackgroundCanvas() {
   }, [])
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="background-canvas"
-      aria-hidden="true"
-    />
+    <canvas ref={canvasRef} className="background-canvas" aria-hidden="true" />
   )
 }
