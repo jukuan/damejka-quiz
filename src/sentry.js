@@ -1,14 +1,11 @@
-import * as Sentry from '@sentry/react'
-
-export function initSentry() {
+export async function initSentry() {
   const dsn = import.meta.env.VITE_SENTRY_DSN
+  if (!dsn || !import.meta.env.PROD) return
 
-  if (!dsn) return
-
+  const Sentry = await import('@sentry/react')
   Sentry.init({
     dsn,
-    enabled: import.meta.env.PROD,
-    environment: import.meta.env.MODE || 'production',
+    environment: import.meta.env.MODE,
     release: import.meta.env.VITE_APP_VERSION || undefined,
 
     dataCollection: {
@@ -28,5 +25,3 @@ export function initSentry() {
     replaysOnErrorSampleRate: 1.0,
   })
 }
-
-export { Sentry }
