@@ -5,7 +5,6 @@ import App from './App'
 import './index.css'
 
 initSentry()
-console.log('Sentry client:', Sentry.getClient()?.getOptions().dsn)
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
