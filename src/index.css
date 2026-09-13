@@ -590,8 +590,8 @@ button:disabled {
 }
 
 .language {
-  display: grid;
-  gap: 12px;
+  display: flex;
+  gap: 14px;
   align-items: center;
   width: 100%;
   padding: 14px;
@@ -607,28 +607,32 @@ button:disabled {
     border-color 0.15s ease;
 }
 
+.language > span {
+  flex-shrink: 0;
+  font-size: 28px;
+}
+
+.language div {
+  display: grid;
+  flex: 1;
+  gap: 3px;
+  min-width: 0; /* allows text truncation if names get long */
+}
+
+.language i {
+  flex-shrink: 0;
+  font-size: 22px;
+  font-style: normal;
+  color: #71808f;
+}
+
 .language:hover {
   border-color: #b9cddd;
   box-shadow: 0 6px 18px rgb(30 60 90 / 8%);
   transform: translateY(-1px);
 }
 
-.language > span {
-  font-size: 28px;
-}
-
-.language div {
-  display: grid;
-  gap: 3px;
-}
-
 .language small {
-  color: #71808f;
-}
-
-.language i {
-  font-size: 22px;
-  font-style: normal;
   color: #71808f;
 }
 
