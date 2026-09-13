@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { t } from '../i18n'
+import * as Sentry from '@sentry/react';
 
 export default function Footer({ lang }) {
   const [open, setOpen] = useState(false)
@@ -10,6 +11,13 @@ export default function Footer({ lang }) {
         <button className="footer-link" onClick={() => setOpen(true)}>
           {t(lang, 'aboutQuiz')}
         </button>
+        <button
+      onClick={() => {
+        throw new Error('This is your first error!');
+      }}
+    >
+      Break the world
+    </button>
       </footer>
 
       {open && (
