@@ -32,7 +32,10 @@ export default function QuestionCard({
   const color = category?.color ?? 'var(--accent)'
   const icon = category?.icon ?? ''
   const label = categoryName(lang, categoryId)
-  const img = question.image.replace('Damejka', label).replace('Дамейка', label)
+  const img = question.image?.replace(
+    /Damejka|Дамейка/,
+    label,
+  )
 
   return (
     <section className="card question-card">
@@ -49,7 +52,7 @@ export default function QuestionCard({
         {isDoubleFollowUp && <span className="part">{t(lang, 'part2')}</span>}
       </div>
 
-      <img className="question-image" src={img} alt="" />
+      {img && <img className="question-image" src={img} alt="" />}
 
       <div className="question-copy">
         <small>

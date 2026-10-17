@@ -55,6 +55,28 @@ const Layout = ({ lang, children }) => (
   </>
 )
 
+/**
+ * Shuffle MCQ options with Fisher–Yates and remap correctIndex.
+ * Non-MCQ questions pass through unchanged. Doubles this up so that
+ * follow-up questions (which are also MCQ) get the same treatment.
+ */
+function shuffleOptions(question) {
+  if (question.type !== 'mcq') return question
+  if (!question.options || question.options.length < 2) return question
+
+  const indices = question.options.map((_, i) => i)
+  for (let i = indices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[indices[i], indices[j]] = [indices[j], indices[i]]
+  }
+
+  return {
+    ...question,
+    options: indices.map((i) => question.options[i]),
+    correctIndex: indices.indexOf(question.correctIndex),
+  }
+}
+
 export default function App() {
   // ---- Initial state, driven by URL first, then localStorage ----------------
   const [lang, setLang] = useState(() => {
@@ -136,6 +158,8 @@ export default function App() {
         timer.current = null
       }
 
+      // Reset the full quiz state, including the double-question flags
+      // that would otherwise leak into the next round.
       setDifficulty(null)
       setCurrentRound(0)
       setRemainingCategories([])
@@ -147,6 +171,8 @@ export default function App() {
       setScrambled('')
       setCorrectAnswers(0)
       setIncorrectAnswers(0)
+      setIsDoubleFollowUp(false)
+      setPendingCategoryCompletion(null)
 
       const fromUrl = getLangFromPath()
       if (isKnownLang(fromUrl)) {
@@ -211,7 +237,8 @@ export default function App() {
     }
   }, [])
 
-  useEffect(() => clearTimer, [clearTimer])
+  // Cleanup any pending "next question" timeout on unmount.
+  useEffect(() => () => clearTimer(), [clearTimer])
 
   // ---- Loading and advancing ------------------------------------------------
   const loadQuestion = useCallback(
@@ -219,7 +246,8 @@ export default function App() {
       const pool = getPool(categoryId, difficultyValue)
       if (!pool.length) return false
 
-      const question = questionOverride || pickRandom(pool)
+      const picked = questionOverride || pickRandom(pool)
+      const question = shuffleOptions(picked)
 
       setActiveCategoryId(categoryId)
       setActiveQuestion(question)
@@ -337,7 +365,12 @@ export default function App() {
             advance(activeCategoryId, true, CORRECT_DELAY)
             return
           }
-          setActiveQuestion({ ...followUp, type: 'mcq', isDouble: false })
+
+          // Follow-ups are MCQ too — shuffle them as well, otherwise the
+          // correct answer sits in the same position on every double question.
+          setActiveQuestion(
+            shuffleOptions({ ...followUp, type: 'mcq', isDouble: false }),
+          )
           setIsDoubleFollowUp(true)
           setPendingCategoryCompletion(activeCategoryId)
           setSelectedOption(null)
@@ -395,6 +428,8 @@ export default function App() {
     setActiveQuestion(null)
     setCorrectAnswers(0)
     setIncorrectAnswers(0)
+    setIsDoubleFollowUp(false)
+    setPendingCategoryCompletion(null)
     setScreen('question')
 
     startNewRound(value)
@@ -411,8 +446,13 @@ export default function App() {
     setActiveCategoryId(null)
     setActiveQuestion(null)
     setFeedback(null)
+    setSelectedOption(null)
+    setUserAnswer('')
+    setScrambled('')
     setCorrectAnswers(0)
     setIncorrectAnswers(0)
+    setIsDoubleFollowUp(false)
+    setPendingCategoryCompletion(null)
     setScreen('language')
   }
 

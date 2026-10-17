@@ -1,10 +1,10 @@
 export const SUPPORTED_LANGUAGES = [
   { id: 'be', flag: '🇧🇾', nativeName: 'Беларуская' },
+  { id: 'uk', flag: '🇺🇦', nativeName: 'Українська' },
   { id: 'en', flag: '🇬🇧', nativeName: 'English' },
   { id: 'ru', flag: '🇷🇺', nativeName: 'Русский' },
   { id: 'es', flag: '🇪🇸', nativeName: 'Español' },
   { id: 'de', flag: '🇩🇪', nativeName: 'Deutsch' },
-  { id: 'uk', flag: '🇺🇦', nativeName: 'Українська' },
 ]
 
 export const translations = {
