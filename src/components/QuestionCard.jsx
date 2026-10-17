@@ -32,10 +32,7 @@ export default function QuestionCard({
   const color = category?.color ?? 'var(--accent)'
   const icon = category?.icon ?? ''
   const label = categoryName(lang, categoryId)
-  const img = question.image?.replace(
-    /Damejka|Дамейка/,
-    label,
-  )
+  const img = question.image?.replace(/Damejka|Дамейка/, label)
 
   return (
     <section className="card question-card">

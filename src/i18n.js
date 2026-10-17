@@ -61,7 +61,8 @@ export const translations = {
     authors: 'Аўтары',
     share: 'Падзяліцца вынікам',
     shareTitle: 'Мае вынікі ў віктарыне «Дамейка»',
-    shareTemplate: 'Я адказаў на {total} пытанняў у квізе «Дамейка»! Правільных: {correct}. Далучайся: {url}',
+    shareTemplate:
+      'Я адказаў на {total} пытанняў у квізе «Дамейка»! Правільных: {correct}. Далучайся: {url}',
     shareCopied: 'Тэкст скапіяваны!',
     shareError: 'Не ўдалося падзяліцца',
   },
