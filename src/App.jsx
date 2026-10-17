@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import LanguageScreen from './components/LanguageScreen'
 import DifficultyScreen from './components/DifficultyScreen'
 import GameHeader from './components/GameHeader'
@@ -7,46 +7,11 @@ import QuestionCard from './components/QuestionCard'
 import RoundComplete from './components/RoundComplete'
 import BackgroundCanvas from './components/BackgroundCanvas'
 import './index.css'
-import { registerServiceWorker } from './pwa'
-import { SUPPORTED_LANGUAGES, t } from './i18n'
-import { getLangFromPath, navigateTo, replaceTo } from './routing'
+import { initAnalytics, trackEvent } from './analytics'
+import { useLanguage } from './hooks/useLanguage'
+import { useInstallPrompt } from './hooks/useInstallPrompt'
+import { useQuiz } from './hooks/useQuiz'
 
-const CORRECT_DELAY = 1000
-const WRONG_DELAY = 1500
-
-const DEFAULT_LANG = 'be'
-
-const pickRandom = (items) => items[Math.floor(Math.random() * items.length)]
-
-const isKnownLang = (value) =>
-  Boolean(value) && SUPPORTED_LANGUAGES.some((item) => item.id === value)
-
-// Eagerly import every language's question pack that exists at build time.
-const questionModules = import.meta.glob('./data/*/questions.js', {
-  eager: true,
-})
-
-const getQuestionPack = (lang) => {
-  const requestedKey = `./data/${lang}/questions.js`
-  const fallbackKey = `./data/${DEFAULT_LANG}/questions.js`
-  const mod = questionModules[requestedKey] || questionModules[fallbackKey]
-
-  if (!mod) {
-    return {
-      categories: [],
-      questions: [],
-      scrambleWord: (word) => word,
-    }
-  }
-
-  return {
-    categories: mod.categories || [],
-    questions: mod.questions || [],
-    scrambleWord: mod.scrambleWord || ((word) => word),
-  }
-}
-
-/** Shared layout: animated background behind every screen. */
 const Layout = ({ lang, children }) => (
   <>
     <BackgroundCanvas />
@@ -55,423 +20,80 @@ const Layout = ({ lang, children }) => (
   </>
 )
 
-/**
- * Shuffle MCQ options with Fisher–Yates and remap correctIndex.
- * Non-MCQ questions pass through unchanged. Doubles this up so that
- * follow-up questions (which are also MCQ) get the same treatment.
- */
-function shuffleOptions(question) {
-  if (question.type !== 'mcq') return question
-  if (!question.options || question.options.length < 2) return question
-
-  const indices = question.options.map((_, i) => i)
-  for (let i = indices.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[indices[i], indices[j]] = [indices[j], indices[i]]
-  }
-
-  return {
-    ...question,
-    options: indices.map((i) => question.options[i]),
-    correctIndex: indices.indexOf(question.correctIndex),
-  }
-}
-
 export default function App() {
-  // ---- Initial state, driven by URL first, then localStorage ----------------
-  const [lang, setLang] = useState(() => {
-    const fromUrl = getLangFromPath()
-    if (isKnownLang(fromUrl)) return fromUrl
-    const stored = localStorage.getItem('damejka-lang')
-    return isKnownLang(stored) ? stored : null
-  })
+  const language = useLanguage()
+  const install = useInstallPrompt()
+  const quiz = useQuiz({ lang: language.lang })
 
-  const [screen, setScreen] = useState(() => {
-    const fromUrl = getLangFromPath()
-    if (isKnownLang(fromUrl)) return 'difficulty'
-    const stored = localStorage.getItem('damejka-lang')
-    return isKnownLang(stored) ? 'difficulty' : 'language'
-  })
-
-  const [installPrompt, setInstallPrompt] = useState(null)
-
-  // Initialized lazily — no need for an effect just to read this once.
-  const [installed, setInstalled] = useState(
-    () =>
-      window.matchMedia?.('(display-mode: standalone)').matches ||
-      window.navigator.standalone === true,
-  )
-
-  const [difficulty, setDifficulty] = useState(null)
-
-  const [currentRound, setCurrentRound] = useState(0)
-  const [remainingCategories, setRemainingCategories] = useState([])
-  const [activeCategoryId, setActiveCategoryId] = useState(null)
-  const [activeQuestion, setActiveQuestion] = useState(null)
-
-  const [isDoubleFollowUp, setIsDoubleFollowUp] = useState(false)
-  const [pendingCategoryCompletion, setPendingCategoryCompletion] =
-    useState(null)
-
-  const [selectedOption, setSelectedOption] = useState(null)
-  const [userAnswer, setUserAnswer] = useState('')
-  const [feedback, setFeedback] = useState(null)
-  const [scrambled, setScrambled] = useState('')
-
-  const [correctAnswers, setCorrectAnswers] = useState(0)
-  const [incorrectAnswers, setIncorrectAnswers] = useState(0)
-
-  const timer = useRef(null)
-
-  // ---- Question pack for the current language -------------------------------
-  const { categories, questions, scrambleWord } = useMemo(
-    () => getQuestionPack(lang || DEFAULT_LANG),
-    [lang],
-  )
-
-  const getPool = useCallback(
-    (categoryId, difficultyValue) =>
-      questions.filter(
-        (question) =>
-          question.category === categoryId &&
-          question.difficulty === difficultyValue,
-      ),
-    [questions],
-  )
-
-  // ---- Normalize URL on first mount ----------------------------------------
+  // Initialize GA once.
   useEffect(() => {
-    const fromUrl = getLangFromPath()
-    if (lang && fromUrl !== lang) {
-      replaceTo(lang)
-    } else if (!lang && fromUrl) {
-      replaceTo(null)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    initAnalytics()
   }, [])
 
-  // ---- React to browser Back/Forward ---------------------------------------
+  // Fire round_completed exactly once when the quiz transitions.
+  // (Reading quiz.* in the effect body is fine because the effect only
+  // runs when phase actually changes — the previous value is captured in ref.)
+  const prevPhaseRef = useRef(quiz.phase)
+  useEffect(() => {
+    if (
+      quiz.phase === 'roundComplete' &&
+      prevPhaseRef.current !== 'roundComplete'
+    ) {
+      trackEvent('round_completed', {
+        round: quiz.currentRound,
+        difficulty: quiz.difficulty,
+        correct: quiz.correctAnswers,
+        incorrect: quiz.incorrectAnswers,
+      })
+    }
+    prevPhaseRef.current = quiz.phase
+  }, [
+    quiz.phase,
+    quiz.currentRound,
+    quiz.difficulty,
+    quiz.correctAnswers,
+    quiz.incorrectAnswers,
+  ])
+
+  // Browser Back/Forward → reset quiz, sync URL to state.
   useEffect(() => {
     const onPopState = () => {
-      if (timer.current) {
-        clearTimeout(timer.current)
-        timer.current = null
-      }
-
-      // Reset the full quiz state, including the double-question flags
-      // that would otherwise leak into the next round.
-      setDifficulty(null)
-      setCurrentRound(0)
-      setRemainingCategories([])
-      setActiveCategoryId(null)
-      setActiveQuestion(null)
-      setFeedback(null)
-      setSelectedOption(null)
-      setUserAnswer('')
-      setScrambled('')
-      setCorrectAnswers(0)
-      setIncorrectAnswers(0)
-      setIsDoubleFollowUp(false)
-      setPendingCategoryCompletion(null)
-
-      const fromUrl = getLangFromPath()
-      if (isKnownLang(fromUrl)) {
-        setLang(fromUrl)
-        setScreen('difficulty')
-      } else {
-        setScreen('language')
-      }
+      quiz.reset()
+      language.syncFromUrl()
     }
-
     window.addEventListener('popstate', onPopState)
     return () => window.removeEventListener('popstate', onPopState)
-  }, [])
-
-  // ---- PWA / install prompt -------------------------------------------------
-  useEffect(() => {
-    registerServiceWorker()
-
-    const handleBeforeInstall = (event) => {
-      event.preventDefault()
-      setInstallPrompt(event)
-    }
-    const handleInstalled = () => {
-      setInstalled(true)
-      setInstallPrompt(null)
-    }
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstall)
-    window.addEventListener('appinstalled', handleInstalled)
-
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstall)
-      window.removeEventListener('appinstalled', handleInstalled)
-    }
-  }, [])
-
-  // ---- Persist language and update document metadata ------------------------
-  useEffect(() => {
-    if (!lang) return
-    localStorage.setItem('damejka-lang', lang)
-    document.documentElement.lang = lang
-    document.title = t(lang, 'title')
-  }, [lang])
-
-  const handleInstall = useCallback(async () => {
-    if (!installPrompt) return
-    installPrompt.prompt()
-    const result = await installPrompt.userChoice
-    if (result.outcome !== 'accepted') setInstallPrompt(null)
-  }, [installPrompt])
-
-  // Active category object — used for its icon and color.
-  const category = useMemo(
-    () => categories.find((item) => item.id === activeCategoryId) ?? null,
-    [categories, activeCategoryId],
-  )
-
-  const clearTimer = useCallback(() => {
-    if (timer.current) {
-      clearTimeout(timer.current)
-      timer.current = null
-    }
-  }, [])
-
-  // Cleanup any pending "next question" timeout on unmount.
-  useEffect(() => () => clearTimer(), [clearTimer])
-
-  // ---- Loading and advancing ------------------------------------------------
-  const loadQuestion = useCallback(
-    (categoryId, difficultyValue, questionOverride = null) => {
-      const pool = getPool(categoryId, difficultyValue)
-      if (!pool.length) return false
-
-      const picked = questionOverride || pickRandom(pool)
-      const question = shuffleOptions(picked)
-
-      setActiveCategoryId(categoryId)
-      setActiveQuestion(question)
-      setIsDoubleFollowUp(Boolean(questionOverride))
-      setPendingCategoryCompletion(questionOverride ? categoryId : null)
-
-      setSelectedOption(null)
-      setUserAnswer('')
-      setFeedback(null)
-
-      setScrambled(
-        question.type === 'unscramble'
-          ? question.scrambled || scrambleWord(question.correctAnswer)
-          : '',
-      )
-
-      setScreen('question')
-      return true
-    },
-    [getPool, scrambleWord],
-  )
-
-  const startNewRound = useCallback(
-    (difficultyValue = difficulty) => {
-      const availableCategories = categories
-        .filter((item) => getPool(item.id, difficultyValue).length > 0)
-        .map((item) => item.id)
-
-      if (!availableCategories.length) {
-        console.warn(
-          `No questions for lang=${lang}, difficulty=${difficultyValue}`,
-        )
-        setScreen('language')
-        return
-      }
-
-      setCurrentRound((round) => round + 1)
-      setRemainingCategories(availableCategories)
-      setCorrectAnswers(0)
-      setIncorrectAnswers(0)
-      setScreen('question')
-
-      // Load the first question of the new round immediately — previously
-      // this lived in a separate effect and was flagged by
-      // react-hooks/set-state-in-effect.
-      loadQuestion(pickRandom(availableCategories), difficultyValue)
-    },
-    [categories, difficulty, getPool, lang, loadQuestion],
-  )
-
-  const finishRound = useCallback(() => {
-    clearTimer()
-    setActiveQuestion(null)
-    setActiveCategoryId(null)
-    setScreen('roundComplete')
-  }, [clearTimer])
-
-  const advance = useCallback(
-    (categoryId, completed, delay) => {
-      clearTimer()
-
-      const nextCategories = completed
-        ? remainingCategories.filter((id) => id !== categoryId)
-        : remainingCategories
-
-      setRemainingCategories(nextCategories)
-
-      const candidates = nextCategories.filter((id) => id !== categoryId)
-
-      timer.current = setTimeout(() => {
-        if (!candidates.length) {
-          finishRound()
-          return
-        }
-
-        loadQuestion(pickRandom(candidates), difficulty)
-      }, delay)
-    },
-    [clearTimer, difficulty, finishRound, loadQuestion, remainingCategories],
-  )
-
-  const handleSubmit = useCallback(
-    (optionIndex = null) => {
-      if (!activeQuestion || feedback) return
-
-      const isCorrect =
-        activeQuestion.type === 'mcq'
-          ? optionIndex === activeQuestion.correctIndex
-          : userAnswer.trim().toLocaleLowerCase() ===
-            activeQuestion.correctAnswer.trim().toLocaleLowerCase()
-
-      const correctAnswer =
-        activeQuestion.type === 'mcq'
-          ? activeQuestion.options[activeQuestion.correctIndex]
-          : activeQuestion.correctAnswer
-
-      setFeedback({ correct: isCorrect, correctAnswer })
-
-      if (isCorrect) {
-        setCorrectAnswers((count) => count + 1)
-      } else {
-        setIncorrectAnswers((count) => count + 1)
-      }
-
-      if (!isCorrect) {
-        advance(activeCategoryId, false, WRONG_DELAY)
-        return
-      }
-
-      if (activeQuestion.isDouble && !isDoubleFollowUp) {
-        clearTimer()
-        timer.current = setTimeout(() => {
-          const followUp = activeQuestion.followUp
-          if (!followUp) {
-            advance(activeCategoryId, true, CORRECT_DELAY)
-            return
-          }
-
-          // Follow-ups are MCQ too — shuffle them as well, otherwise the
-          // correct answer sits in the same position on every double question.
-          setActiveQuestion(
-            shuffleOptions({ ...followUp, type: 'mcq', isDouble: false }),
-          )
-          setIsDoubleFollowUp(true)
-          setPendingCategoryCompletion(activeCategoryId)
-          setSelectedOption(null)
-          setUserAnswer('')
-          setFeedback(null)
-        }, CORRECT_DELAY)
-        return
-      }
-
-      advance(
-        pendingCategoryCompletion || activeCategoryId,
-        true,
-        CORRECT_DELAY,
-      )
-    },
-    [
-      activeQuestion,
-      activeCategoryId,
-      advance,
-      clearTimer,
-      feedback,
-      isDoubleFollowUp,
-      pendingCategoryCompletion,
-      userAnswer,
-    ],
-  )
-
-  const handleOptionSelect = useCallback(
-    (index) => {
-      if (feedback) return
-      setSelectedOption(index)
-      handleSubmit(index)
-    },
-    [feedback, handleSubmit],
-  )
-
-  // ---- Screen transitions ---------------------------------------------------
-  const chooseLanguage = (value) => {
-    setLang(value)
-    setScreen('difficulty')
-    navigateTo(value)
-  }
-
-  const goToLanguage = () => {
-    setScreen('language')
-    replaceTo(null)
-  }
-
-  const chooseDifficulty = (value) => {
-    clearTimer()
-    setDifficulty(value)
-    setCurrentRound(0)
-    setRemainingCategories([])
-    setActiveCategoryId(null)
-    setActiveQuestion(null)
-    setCorrectAnswers(0)
-    setIncorrectAnswers(0)
-    setIsDoubleFollowUp(false)
-    setPendingCategoryCompletion(null)
-    setScreen('question')
-
-    startNewRound(value)
-  }
+  }, [quiz, language])
 
   const restart = () => {
-    clearTimer()
-    replaceTo(null)
-    localStorage.removeItem('damejka-lang')
-    setLang(null)
-    setDifficulty(null)
-    setCurrentRound(0)
-    setRemainingCategories([])
-    setActiveCategoryId(null)
-    setActiveQuestion(null)
-    setFeedback(null)
-    setSelectedOption(null)
-    setUserAnswer('')
-    setScrambled('')
-    setCorrectAnswers(0)
-    setIncorrectAnswers(0)
-    setIsDoubleFollowUp(false)
-    setPendingCategoryCompletion(null)
-    setScreen('language')
+    quiz.reset()
+    language.goToLanguage()
   }
 
-  // ---- Render ---------------------------------------------------------------
+  // Screen is derived — no explicit setScreen calls.
+  const screen = !language.lang
+    ? 'language'
+    : quiz.phase === 'idle'
+      ? 'difficulty'
+      : quiz.phase === 'roundComplete'
+        ? 'roundComplete'
+        : 'question'
+
   if (screen === 'language') {
     return (
-      <Layout lang={lang}>
-        <LanguageScreen onSelect={chooseLanguage} />
+      <Layout lang={language.lang}>
+        <LanguageScreen onSelect={language.chooseLanguage} />
       </Layout>
     )
   }
 
   if (screen === 'difficulty') {
     return (
-      <Layout lang={lang}>
+      <Layout lang={language.lang}>
         <DifficultyScreen
-          lang={lang}
-          onBack={goToLanguage}
-          onSelect={chooseDifficulty}
+          lang={language.lang}
+          onBack={language.goToLanguage}
+          onSelect={quiz.startFirstRound}
         />
       </Layout>
     )
@@ -479,13 +101,13 @@ export default function App() {
 
   if (screen === 'roundComplete') {
     return (
-      <Layout lang={lang}>
+      <Layout lang={language.lang}>
         <RoundComplete
-          lang={lang}
-          round={currentRound}
-          correctAnswers={correctAnswers}
-          incorrectAnswers={incorrectAnswers}
-          onNextRound={() => startNewRound(difficulty)}
+          lang={language.lang}
+          round={quiz.currentRound}
+          correctAnswers={quiz.correctAnswers}
+          incorrectAnswers={quiz.incorrectAnswers}
+          onNextRound={quiz.nextRound}
           onRestart={restart}
         />
       </Layout>
@@ -493,30 +115,29 @@ export default function App() {
   }
 
   return (
-    <Layout lang={lang}>
+    <Layout lang={language.lang}>
       <main className="shell">
         <GameHeader
-          lang={lang}
-          round={currentRound}
-          remainingCategories={remainingCategories}
+          lang={language.lang}
+          round={quiz.currentRound}
+          remainingCategories={quiz.remainingCategories}
           onExit={restart}
-          onInstall={handleInstall}
-          canInstall={Boolean(installPrompt)}
-          installed={installed}
+          onInstall={install.handleInstall}
+          canInstall={install.canInstall}
+          installed={install.installed}
         />
-
         <QuestionCard
-          lang={lang}
-          question={activeQuestion}
-          category={category}
-          isDoubleFollowUp={isDoubleFollowUp}
-          selectedOption={selectedOption}
-          userAnswer={userAnswer}
-          scrambled={scrambled}
-          feedback={feedback}
-          onOptionSelect={handleOptionSelect}
-          onAnswerChange={setUserAnswer}
-          onSubmit={() => handleSubmit()}
+          lang={language.lang}
+          question={quiz.question}
+          category={quiz.category}
+          isDoubleFollowUp={quiz.isDoubleFollowUp}
+          selectedOption={quiz.selectedOption}
+          userAnswer={quiz.userAnswer}
+          scrambled={quiz.scrambled}
+          feedback={quiz.feedback}
+          onOptionSelect={quiz.selectOption}
+          onAnswerChange={quiz.setUserAnswer}
+          onSubmit={() => quiz.submit()}
         />
       </main>
     </Layout>
