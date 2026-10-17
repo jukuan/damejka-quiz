@@ -59,6 +59,11 @@ export const translations = {
       'Віктарына створана ў гонар Ігната Дамейкі — вучонага, падарожніка і педагога. Пытанні ахопліваюць фізіку, хімію, біялогію, астраномію, рэлігію, лінгвістыку і інфарматыку. Для вучняў 3–10 класаў.',
     close: 'Закрыць',
     authors: 'Аўтары',
+    share: 'Падзяліцца вынікам',
+    shareTitle: 'Мае вынікі ў віктарыне «Дамейка»',
+    shareTemplate: 'Я адказаў на {total} пытанняў у квізе «Дамейка»! Правільных: {correct}. Далучайся: {url}',
+    shareCopied: 'Тэкст скапіяваны!',
+    shareError: 'Не ўдалося падзяліцца',
   },
   en: {
     appKicker: 'SCIENCE QUIZ',
@@ -110,6 +115,12 @@ export const translations = {
       'This quiz is dedicated to Ignat Damejka — a scholar, traveler and educator. It covers physics, chemistry, biology, astronomy, religion, linguistics and computer science. Suitable for school students in grades 3–10.',
     close: 'Close',
     authors: 'Authors',
+    share: 'Share result',
+    shareTitle: 'My Damejka quiz results',
+    shareTemplate:
+      'I answered {total} questions in the Damejka quiz! Correct: {correct}. Join me: {url}',
+    shareCopied: 'Text copied!',
+    shareError: 'Could not share',
   },
   ru: {
     appKicker: 'НАУЧНАЯ ВИКТОРИНА',
@@ -162,6 +173,12 @@ export const translations = {
       'Викторина создана в честь Игната Домейко — учёного, путешественника и педагога. Вопросы охватывают физику, химию, биологию, астрономию, религию, лингвистику и информатику. Для школьников 3–10 классов.',
     close: 'Закрыть',
     authors: 'Авторы',
+    share: 'Поделиться результатом',
+    shareTitle: 'Мои результаты в викторине «Дамейка»',
+    shareTemplate:
+      'Я ответил на {total} вопросов в викторине «Дамейка»! Правильных: {correct}. Присоединяйся: {url}',
+    shareCopied: 'Текст скопирован!',
+    shareError: 'Не удалось поделиться',
   },
   es: {
     appKicker: 'CONCURSO CIENTÍFICO',
@@ -214,6 +231,12 @@ export const translations = {
       'Este quiz está dedicado a Ignat Damejka, científico, viajero y educador. Las preguntas abarcan física, química, biología, astronomía, religión, lingüística e informática. Para estudiantes de 3.º a 10.º grado.',
     close: 'Cerrar',
     authors: 'Autoras',
+    share: 'Compartir resultado',
+    shareTitle: 'Mis resultados en el quiz Damejka',
+    shareTemplate:
+      '¡Respondí {total} preguntas en el quiz Damejka! Correctas: {correct}. Únete: {url}',
+    shareCopied: '¡Texto copiado!',
+    shareError: 'No se pudo compartir',
   },
   de: {
     appKicker: 'WISSENSQUIZ',
@@ -266,6 +289,12 @@ export const translations = {
       'Dieses Quiz ist Ignat Damejka gewidmet — einem Gelehrten, Reisenden und Pädagogen. Die Fragen decken Physik, Chemie, Biologie, Astronomie, Religion, Linguistik und Informatik ab. Für Schülerinnen und Schüler der Klassen 3–10.',
     close: 'Schließen',
     authors: 'Autoren',
+    share: 'Ergebnis teilen',
+    shareTitle: 'Meine Damejka-Quiz-Ergebnisse',
+    shareTemplate:
+      'Ich habe {total} Fragen im Damejka-Quiz beantwortet! Richtig: {correct}. Mach mit: {url}',
+    shareCopied: 'Text kopiert!',
+    shareError: 'Teilen fehlgeschlagen',
   },
   uk: {
     appKicker: 'НАУКОВА ВІКТОРИНА',
@@ -318,6 +347,12 @@ export const translations = {
       'Вікторину створено на честь Ігната Дамейки — науковця, мандрівника та педагога. Питання охоплюють фізику, хімію, біологію, астрономію, релігію, лінгвістику та інформатику. Для учнів 3–10 класів.',
     close: 'Закрити',
     authors: 'Автори',
+    share: 'Поділитися результатом',
+    shareTitle: 'Мої результати у вікторині «Дамейка»',
+    shareTemplate:
+      'Я відповів на {total} запитань у вікторині «Дамейка»! Правильних: {correct}. Долучайся: {url}',
+    shareCopied: 'Текст скопіявано!',
+    shareError: 'Не вдалося поділитися',
   },
 }
 

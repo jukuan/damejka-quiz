@@ -777,3 +777,23 @@ button:disabled {
     opacity: 1;
   }
 }
+
+/* ---- Share ---- */
+.share {
+  margin-top: 20px;
+}
+
+.share-status {
+  margin: 16px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.share-status.copied {
+  color: #218c4c;
+}
+
+.share-status.error {
+  color: #c0392b;
+}

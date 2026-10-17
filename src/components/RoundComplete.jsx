@@ -1,4 +1,6 @@
 import { t } from '../i18n'
+import ShareButton from './ShareButton'
+
 export default function RoundComplete({
   lang,
   round,
@@ -34,6 +36,11 @@ export default function RoundComplete({
         <button className="primary" onClick={onNextRound}>
           {t(lang, 'nextRound')}
         </button>
+        <ShareButton
+          lang={lang}
+          correct={correctAnswers}
+          incorrect={incorrectAnswers}
+        />
         <button className="text-button" onClick={onRestart}>
           {t(lang, 'restart')}
         </button>

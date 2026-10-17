@@ -20,9 +20,7 @@ export default function Footer({ lang }) {
             <p>
               {t(lang, 'authors')}:{' '}
               <a href="mailto:Cimafiej@gmail.com">Cimafiej@gmail.com</a>,{' '}
-              <a href="mailto:y.misiukevich@gmail.com">
-                y.misiukevich@gmail.com
-              </a>
+              <a href="https://juljan.by">Juljan.By</a>
             </p>
             <button className="about-close" onClick={() => setOpen(false)}>
               {t(lang, 'close')}
